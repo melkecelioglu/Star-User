@@ -8,12 +8,6 @@ interface IERC20 {
 }
 
 contract StarkUser {
-    enum CreditScore {
-        BAD,
-        MEDIUM,
-        GOOD,
-        MASTER
-    }
 
     enum NumberOfTransaction {
         TOLOW, //<150
@@ -36,14 +30,13 @@ contract StarkUser {
     address private owner;
     address pool;
     mapping(address => User) private users;
-    mapping(address => bool) private balance;
 
     struct User {
         string  addrr;
-        CreditScore   creditScore ;
         bool    twitter;
         bool    discord;
-        bool    starkDomain;
+        string  starkDomain;
+        bool    hasDomain;
         NumberOfTransaction numberOfTransaction;
         AGE     age;
         bool    frequency;
@@ -57,8 +50,7 @@ contract StarkUser {
         uint256 duration;
         bool    autorized;
     }
-
-// Contract STRK: 0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d
+        // Contract STRK: 0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d
     constructor(address _strkToken, address _pool) {
         owner = msg.sender;
         pool = _pool;
@@ -83,8 +75,6 @@ contract StarkUser {
         register_referal(refereal1);
         set_frequency(msg.sender);
     }
-
-
 
 
     // Function to calculate the credit score of a user
@@ -126,15 +116,7 @@ contract StarkUser {
         } else if (user.NFT == 3){
             creditScore =+ 11;
         }
-        if creditScore < 65 {
-            user.creditScore = CreditScore.BAD;
-        } else if creditScore < 71 {
-            user.creditScore = CreditScore.MEDIUM;
-        } else if creditScore < 83 {
-            user.creditScore = CreditScore.GOOD;
-        } else if creditScore >= 100{
-            user.creditScore = CreditScore.MASTER;
-        }
+        return creditScore;
     }
 
     function set_Twitter(address user) public returns (bool) {
@@ -145,8 +127,9 @@ contract StarkUser {
         users[user].discord = true;
     }
 
-    function set_Stark_Domain(address user) public returns (bool) {
-        user.starkDomain = true;
+    function set_Stark_Domain(address user, string starkDomain) public returns (bool) {
+        user.starkDomain = starkDomain;
+        user.hasDomain = true;
     }
 
     function set_Number_Of_Transaction(address user, uint16 amount) public returns (NumberOfTransaction) {
@@ -192,43 +175,43 @@ contract StarkUser {
         //ToDO
     }
 
-    function borrow(address user, uint256 _amount) public {
+    function borrow(uint256 _amount) public {
         require(_amount > 0, "Amount must be greater than 0");
 
         require(strkToken.transferFrom(msg.sender, address(this), _amount), "Transfer failed");
 
-        users[user].deposit += _amount;
+        users[msg.sender].deposit += _amount;
 
         require(getFoudationSTRK(_amount * 1.3), "Fail to get the loan");
-        users[user].credit = _amount * 1.3;
-        require(delegateToken((_amount + users[user].credit) * 0.4), user), "Failed to delegate");
-        users[user].delegate = (_amount + users[user].credit) * 0.4;
-        require(strkToken.transfer(msg.sender, users[user].credit + users[user].deposit - users[user].delegate), "Transfer failed");
-        users[user].deposit -= 0.6 * users[user].credit;
-        users[user].startTime = block.timestamp;
-        users[user].duration = 30 days;
+        users[msg.sender].credit = _amount * 1.3;
+        require(delegateToken((_amount + users[msg.sender].credit) * 0.4), user, "Failed to delegate");
+        users[msg.sender].delegate = (_amount + users[msg.sender].credit) * 0.4;
+        require(strkToken.transfer(msg.sender, users[msg.sender].credit + users[msg.sender].deposit - users[msg.sender].delegate), "Transfer failed");
+        users[msg.sender].deposit -= 0.6 * users[msg.sender].credit;
+        users[msg.sender].startTime = block.timestamp;
+        users[msg.sender].duration = 30 days;
     }
 
-    function repay(address user) public {
-        require(users[user].delegate > 0, "No delegate found");
-        require(undelegate_STRK(users[user].delegate, user), "Failed to undelegate");
-        users[user].delegate = 0;
-        require(strkToken.transfer(pool, users[user].credit, "Transfer failed"));
-        users[user].credit = 0;
-        require(strkToken.transfer(user, users[user].deposit, "Transfer failed"));
-        users[user].deposit = 0;
+    function repay() public {
+        require(users[msg.sender].delegate > 0, "No delegate found");
+        require(undelegate_STRK(users[msg.sender].delegate, user), "Failed to undelegate");
+        users[msg.sender].delegate = 0;
+        require(strkToken.transfer(pool, users[msg.sender].credit, "Transfer failed"));
+        users[msg.sender].credit = 0;
+        require(strkToken.transfer(msg.sender, users[msg.sender].deposit, "Transfer failed"));
+        users[msg.sender].deposit = 0;
 
     }
 
-    function auto_Repay(address user) public {
-        if(users[user].startTime + users[user].duration < block.timestamp) {
-            require(users[user].delegate > 0, "No delegate found");
-            require(undelegate_STRK(users[user].delegate, user), "Failed to undelegate");
-            users[user].delegate = 0;
-            require(strkToken.transfer(pool, users[user].credit, "Transfer failed"));
-            users[user].credit = 0;
-            require(strkToken.transfer(user, users[user].deposit, "Transfer failed"));
-            users[user].deposit = 0;
+    function auto_Repay() public {
+        if(users[msg.sender].startTime + users[msg.sender].duration < block.timestamp) {
+            require(users[msg.sender].delegate > 0, "No delegate found");
+            require(undelegate_STRK(users[msg.sender].delegate, msg.sender), "Failed to undelegate");
+            users[msg.sender].delegate = 0;
+            require(strkToken.transfer(pool, users[msg.sender].credit, "Transfer failed"));
+            users[msg.sender].credit = 0;
+            require(strkToken.transfer(msg.sender, users[msg.sender].deposit, "Transfer failed"));
+            users[msg.sender].deposit = 0;
         }
     }
 
@@ -243,8 +226,8 @@ contract StarkUser {
         //ToDO
     }
 
-//0x0782f0ddca11d9950bc3220e35ac82cf868778edb67a5e58b39838544bc4cd0f
-//Function unlock(amount)
+    //0x0782f0ddca11d9950bc3220e35ac82cf868778edb67a5e58b39838544bc4cd0f
+    //Function unlock(amount)
     function undelegate_STRK(uint256 amount, address borrower) private onlySelf() {
         //ToDO
     }
@@ -258,5 +241,6 @@ contract StarkUser {
         //ToDO
         require(users[refereal].refereal[0] == msg.sender || users[refereal].refereal[1] == msg.sender);
         users[msg.sender].autorized = True;
+    }
 
 }
