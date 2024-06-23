@@ -29,7 +29,7 @@ The protocol targets the best Starknet users, with less than $10,000 in their wa
 
 4 - Safeguarding System using game theory to create a virtuous community 
 
-### Loan - Smart Contract Workflow 
+### Loan - Smart Contract Workflow using an example
 
 ![Smart Contract Workflow](assets/workflow.png)
 
