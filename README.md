@@ -10,7 +10,6 @@ Star User is the Only Dust of users. This under-collateralized lending protocol 
 
 > This project has been built during ETHGlobal StarkHack. More information [here](https://ethglobal.com/events/starkhack).
 
-- Try the application for yourself here 👉 [website](link/)
 - Watch the demo video and project page here 👉 [video](https://ethglobal.com/showcase/star-user-p38xo)
 
 We want to continue this project after the hackathon and work with the Starknet Foundation and open-source contributors from Only Dust.
