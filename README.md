@@ -6,7 +6,14 @@ Under-collateralized lending protocol using verifiable credentials to give a cre
 
 Star User is the Only Dust of users. This under-collateralized lending protocol leverages the on-chain reputation on Starknet to give a credit score, open a dynamic credit line to small and loyal users, allowing them to borrow $STRK, encourage decentralization and active participation in governance by wrapping $STRK, then improve activity on Starknet thanks to their continuous actions.
 
-### Core Properties
+> This project has been built during ETHGlobal StarkHack. More information [here](https://ethglobal.com/events/starkhack).
+
+- Try the application for yourself here 👉 [website](link/)
+- Watch the demo video and project page here 👉 [video](https://ethglobal.com/showcase/star-user-p38xo)
+- Take a look at the frontend 👉 [website](link/https://github.com/melkecelioglu/Stark-User/tree/fe)
+- Take a look at the Star_User Cairo smart-contract 👉 [website](link/)
+
+### How does it work
 
 The protocol targets the best Starknet users, with less than $10,000 in their wallets.
 
