@@ -10,8 +10,6 @@ Star User is the Only Dust of users. This under-collateralized lending protocol 
 
 - Try the application for yourself here 👉 [website](link/)
 - Watch the demo video and project page here 👉 [video](https://ethglobal.com/showcase/star-user-p38xo)
-- Take a look at the frontend 👉 [website](link/https://github.com/melkecelioglu/Stark-User/tree/fe)
-- Take a look at the Star_User Cairo smart-contract 👉 [website](link/)
 
 ### How does it work
 
