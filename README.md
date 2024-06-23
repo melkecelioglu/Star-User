@@ -13,6 +13,8 @@ Star User is the Only Dust of users. This under-collateralized lending protocol 
 - Try the application for yourself here 👉 [website](link/)
 - Watch the demo video and project page here 👉 [video](https://ethglobal.com/showcase/star-user-p38xo)
 
+We want to continue this project after the hackathon and work with the Starknet Foundation and open-source contributors from Only Dust.
+
 ### How does it work
 
 The protocol targets the best Starknet users, with less than $10,000 in their wallets.
