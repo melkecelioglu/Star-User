@@ -127,39 +127,55 @@ contract StarkUser {
         }
     }
 
-
-    function create_User(address user) public onlyOwner() {
-        //Register inside users's Map a new address
-
-    }
-
     function set_Twitter(address user) public returns (bool) {
-        //ToDO
-
+        users[user].twitter = true;
     }
 
     function set_Discord(address user) public returns (bool) {
-        //ToDO
+        users[user].discord = true;
     }
 
     function set_Stark_Domain(address user) public returns (bool) {
-        //ToDO
+        user.starkDomain = true;
     }
 
-    function set_Number_Of_Transaction(address user) public returns (NumberOfTransaction) {
-        //ToDO
+    function set_Number_Of_Transaction(address user, uint16 amount) public returns (NumberOfTransaction) {
+        if (amount > 1000){
+            user.numberOfTransaction = NumberOfTransaction.VERYHIGH;
+        } else if (amount > 600){
+            user.numberOfTransaction = NumberOfTransaction.HIGH;
+        } else if (amount > 400){
+            user.numberOfTransaction = NumberOfTransaction.GOOD;
+        } else if (amount > 250){
+            user.numberOfTransaction = NumberOfTransaction.MEDIUM;
+        } else if (amount > 150){
+            user.numberOfTransaction = NumberOfTransaction.MINIMUM;
+        } else {
+            user.numberOfTransaction = NumberOfTransaction.TOLOW;
+        }
+        user.numberOfTransaction = NumberOfTransaction.MINIMUM;
     }
 
     function verify_Frequency(address user) public returns (bool) {
-        //ToDO
+        users[user].frequency = true;
     }
 
-    function set_Age(address user) public returns (AGE) {
-        //ToDO
+    function set_Age(address user, uint8 age) public returns (AGE) {
+        if(age > 18) {
+            users[user].age = AGE.OG;
+        } else if (age > 12) {
+            users[user].age = AGE.SENIOR;
+        } else if (age > 6) {
+            users[user].age = AGE.MEMBER;
+        } else if (age > 3) {
+            users[user].age = AGE.NEWCOMMER;
+        } else {
+            users[user].age = AGE.BABY;
+        }
     }
 
-    function set_MaxAmount(address user) public returns (bool) {
-        //ToDO
+    function set_MaxAmount(address user, bool _maxAmount) public returns (bool) {
+        users[user].MaxAmount = _maxAmount;
     }
 
     function set_NFT(address user) public returns (uint8) {
@@ -211,13 +227,7 @@ contract StarkUser {
         require(strkToken.transferFrom(pool, address(this), _amount), "Transfer failed");
     }
 
-    function wrappe_STRK(uint256 amount) private onlySelf() {
-        //ToDO
-    }
 
-    function unwrap_STRK(uint256 amount) private onlySelf() {
-        //ToDO
-    }
 
     function delegate_STRK(uint256 amount, address borrower) private onlySelf() {
         //ToDO
