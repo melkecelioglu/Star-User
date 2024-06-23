@@ -1,0 +1,1 @@
+mod star_contract;
