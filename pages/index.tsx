@@ -51,7 +51,7 @@ function Home() {
 
         <div className="flex flex-col items-center justify-center pt-24 md:pt-1">
           <h1 className="text-center text-3xl font-bold mb-6">
-            Boost user retention on Starknet
+            Boost user retention on Starknet.
           </h1>
 
           <h2 className="text-center text-sm font-bold mb-6">
