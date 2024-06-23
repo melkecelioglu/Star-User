@@ -65,17 +65,27 @@ contract StarkUser {
         strkToken = IERC20(_strkToken);
     }
 
-    // Modificateur pour restreindre l'accès aux fonctions uniquement au propriétaire
     modifier onlyOwner() {
         require(msg.sender == owner, "Access restricted to the contract owner");
         _;
     }
 
-    // Modificateur pour restreindre l'accès aux fonctions uniquement au contrat lui-même
     modifier onlySelf() {
         require(msg.sender == address(this), "Access restricted to the contract itself");
         _;
     }
+
+    function setAllData(bool starkDomain, uint8 age, uint16 amount, uint8 NFT, address refereal1, bool frequency) public {
+        set_Stark_Domain(msg.sender);
+        set_Age(msg.sender, age);
+        set_Number_Of_Transaction(msg.sender, amount);
+        set_NFT(msg.sender, NFT);
+        register_referal(refereal1);
+        set_frequency(msg.sender);
+    }
+
+
+
 
     // Function to calculate the credit score of a user
     function calculateCreditScore() public{
@@ -95,7 +105,7 @@ contract StarkUser {
         } else if (user.age == AGE.OG) {
             creditScore += 5;
         }
-        if (verify_Frequency(msg.sender) == true) {
+        if (users.frequency == true) {
             creditScore += 20;
         }
         if (user.numberOfTransaction == NumberOfTransaction.MINIMUM) {
@@ -156,7 +166,7 @@ contract StarkUser {
         user.numberOfTransaction = NumberOfTransaction.MINIMUM;
     }
 
-    function verify_Frequency(address user) public returns (bool) {
+    function set_Frequency(address user) public returns (bool) {
         users[user].frequency = true;
     }
 
@@ -244,10 +254,9 @@ contract StarkUser {
 
     }
 
-    function set_referal(address refereal) public {
+    function register_referal(address refereal) public {
         //ToDO
         require(users[refereal].refereal[0] == msg.sender || users[refereal].refereal[1] == msg.sender);
-
-    }
+        users[msg.sender].autorized = True;
 
 }
