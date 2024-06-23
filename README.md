@@ -12,6 +12,8 @@ The protocol targets the best Starknet users, with less than $10,000 in their wa
 
 1 - Credit Scoring based on on-chain reputation
 
+![Smart Contract Workflow](assets/scoring.png)
+
 2 - Dynamic credit line based on your continuous actions
 
 3 - Innovative Loan System to boost voting power and increase on-chain activity for small and loyal users
