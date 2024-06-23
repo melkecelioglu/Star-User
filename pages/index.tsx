@@ -11,11 +11,11 @@ function Home() {
   const router = useRouter();
   const [email, setEmail] = useState("");
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -85,7 +85,7 @@ function Home() {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const csrfToken = (await getCsrfToken(context)) || null;
   return {
     props: {
