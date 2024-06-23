@@ -14,11 +14,9 @@ The protocol targets the best Starknet users, with less than $10,000 in their wa
 
 2 - Dynamic credit line based on your continuous actions
 
-3 - Borrow without any collateral
+3 - Innovative Loan System
 
 4 - Safeguarding System
-
-5 - Innovative Loan System
 
 ### Liquidity Workflow 
 
