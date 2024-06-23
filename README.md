@@ -1,5 +1,7 @@
 # Star User 
 
+![Banner](assets/banner.png)
+
 Under-collateralized lending protocol using verifiable credentials to give a credit score for opening dynamic credit lines and give more power to small and loyal users, then encourage decentralization and active participation on Starknet.
 
 ### Description
