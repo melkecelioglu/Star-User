@@ -55,9 +55,10 @@ contract StarkUser {
         uint16  delegate;
         uint256 startTime;
         uint256 duration;
+        bool    autorized;
     }
 
-
+// Contract STRK: 0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d
     constructor(address _strkToken, address _pool) {
         owner = msg.sender;
         pool = _pool;
@@ -78,7 +79,7 @@ contract StarkUser {
 
     // Function to calculate the credit score of a user
     function calculateCreditScore() public{
-        User memory user = users[msg.sender];
+        User user = users[msg.sender];
         uint8 creditScore = 0;
         if (user.starkDomain) {
             creditScore += 25;
@@ -222,8 +223,21 @@ contract StarkUser {
         //ToDO
     }
 
+//0x0782f0ddca11d9950bc3220e35ac82cf868778edb67a5e58b39838544bc4cd0f
+//Function unlock(amount)
     function undelegate_STRK(uint256 amount, address borrower) private onlySelf() {
         //ToDO
+    }
+
+    function verify_Last_Vote(address user){
+        //ToDO
+
+    }
+
+    function set_referal(address refereal) public {
+        //ToDO
+        require(users[refereal].refereal[0] == msg.sender || users[refereal].refereal[1] == msg.sender);
+
     }
 
 }
